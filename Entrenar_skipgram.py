@@ -1,5 +1,5 @@
 import numpy as np
-from Funciones_auxiliares import aplicar_softmax, generar_one_hot, 
+from Funciones_auxiliares import aplicar_softmax, generar_one_hot, generar_contextos_skipgram
 
 def entrenar_skipgram(V, cota, N, C, corpus, tasa_aprendizaje = 0.1):
 
@@ -31,3 +31,4 @@ def entrenar_skipgram(V, cota, N, C, corpus, tasa_aprendizaje = 0.1):
     ciclos += 1
 
   return W, W_s
+

@@ -43,7 +43,6 @@ def entrenar_cbow(V, ciclos, N, C, corpus, tasa_aprendizaje = 0.1, W = None, W_s
 
 diccionario = './TXTS/Diccionario.txt'
 corpus = './TXTS/Corpus.txt'
-
 V = crear_tokens(diccionario)
 V_cardinal = len(V)
 corpus_i = convertir_corpus(V, corpus)
