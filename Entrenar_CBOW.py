@@ -3,14 +3,16 @@ from Funciones_auxiliares import generar_contextos, calcular_exitacion_e_o, apli
 
 
 
-def entrenar_cbow(V, ciclos, N, C, corpus, tasa_aprendizaje = 0.1):
+def entrenar_cbow(V, ciclos, N, C, corpus, tasa_aprendizaje = 0.1, W = None, W_s = None):
 
   ciclo = 0
   V_cardinal = len(V)
   p = 0
-  W = np.random.normal(0, 0.1, size=(V_cardinal, N))
-  W_s = np.random.normal(0, 0.1, size=(N, V_cardinal))
   Cs_POs = generar_contextos(corpus, C) #lista con contextos y palabras objetivos
+  
+  if W == None:
+    W = np.random.normal(0, 0.1, size=(V_cardinal, N))
+    W_s = np.random.normal(0, 0.1, size=(N, V_cardinal))
 
   while ciclo < ciclos:
     
@@ -34,6 +36,8 @@ def entrenar_cbow(V, ciclos, N, C, corpus, tasa_aprendizaje = 0.1):
       W = actualizar_W(W, c_po, EH, tasa_aprendizaje, C)
 
     ciclo += 1
+    p = 0
+    np.savez(f"./pesos{N}{ciclo}.npz", W = W, W_s = W_s)
 
   return W, W_s
 
@@ -45,4 +49,4 @@ V_cardinal = len(V)
 corpus_i = convertir_corpus(V, corpus)
 print(f'La cantidad de palabras en el diccionario es {V_cardinal}, el tamalo del corpus es {len(corpus_i)}')
 
-W, W_s = entrenar_cbow(V, 30, 100, 4, corpus_i, tasa_aprendizaje = 0.1)
+W, W_s = entrenar_cbow(V, 30, 100, 4, corpus_i)
