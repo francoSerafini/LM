@@ -73,5 +73,12 @@ def convertir_corpus(V, corpus):
         corpus_indices.append(V[palabra])
   return corpus_indices
 
+def generar_contextos_skipgram(corpus, C):
+  Pos_Cos = generar_contextos(corpus, C)
+  contextos_skipgram = []
+  for Po_Co in Pos_Cos:
+    for palabra_Co in Po_Co[0]:
+      contextos_skipgram.append([Po_Co[1], palabra_Co])
+  return contextos_skipgram
 
 
