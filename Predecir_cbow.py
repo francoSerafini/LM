@@ -2,9 +2,11 @@ from Funciones_auxiliares import aplicar_softmax, obtener_clave, generar_context
 import numpy as np
 
 def predecir_cbow(W, W_s, contexto, diccionario, k=2):
+  palabras_contexto = []
   suma_embeddings = 0
   C = len(contexto)
   for palabra in contexto:
+    palabras_contexto.append(obtener_clave(diccionario, palabra))
     suma_embeddings += W[palabra]
   h =  (1/C) * suma_embeddings
   u = W_s.T @ h
@@ -12,7 +14,7 @@ def predecir_cbow(W, W_s, contexto, diccionario, k=2):
   prediccion = np.argmax(y)
   top_k = np.argsort(-y)[0:k]
   print(f'Palabra predicha: {obtener_clave(diccionario, prediccion)}')
-  print(f"Contexto {contexto}")
+  print(f"Contexto {palabras_contexto}")
   return prediccion, top_k
 
 def predecir_corpus_completo(W, W_s, cs_pos, diccionario):

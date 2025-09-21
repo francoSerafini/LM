@@ -26,7 +26,6 @@ def generar_contextos(corpus, C):
 def obtener_clave(diccionario, valor):
   for c, v in diccionario.items():
     if diccionario[c] == valor:
-      print(c)
       return c
   
 def calcular_exitacion_e_o(c_po, W, C):

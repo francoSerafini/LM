@@ -31,7 +31,7 @@ def entrenar_cbow(V, ciclos, N, C, corpus, tasa_aprendizaje = 0.1, W = None, W_s
       #print('t_j', t_j.shape)
       e_j = y_j - t_j #Card_v x 1
       #print('e_j', e_j.shape)
-      W_s = W_s - tasa_aprendizaje * np.outer(h, e_j) #Nxv_card
+      W_s -= tasa_aprendizaje * (h.reshape(-1,1) @ e_j.reshape(1,-1)) #Nxv_card
       EH = W_s @ e_j #NxV @ Vx1 ---> NX1
       W = actualizar_W(W, c_po, EH, tasa_aprendizaje, C)
 
