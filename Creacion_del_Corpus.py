@@ -29,6 +29,7 @@ def definir_diccionario(txt_a_separar, ruta_txt_separado):
     contenido_txt = txt.read() #bytes
     palabras = re.findall(r'[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+|[.,]', contenido_txt)
     for palabra in palabras:
+      palabra = palabra.lower()
       if palabra not in palabras_unicas:
         palabras_unicas.append(palabra)
 
@@ -62,9 +63,13 @@ def convertir_corpus(V, corpus):
     palabras = corpus.read()
     palabras = re.findall(r'[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+|[.,]', palabras)
     for palabra in palabras:
+      palabra = palabra.lower()
       if palabra in V:
         corpus_indices.append(V[palabra])
   return corpus_indices
+
+
+
 
 
 

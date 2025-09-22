@@ -1,7 +1,7 @@
 from Funciones_auxiliares import aplicar_softmax, obtener_clave, generar_contextos, convertir_corpus, crear_tokens
 import numpy as np
 
-def predecir_cbow(W, W_s, contexto, diccionario, k=2):
+def predecir_cbow(W, W_s, contexto, diccionario, k=10):
   palabras_contexto = []
   suma_embeddings = 0
   C = len(contexto)
@@ -17,23 +17,26 @@ def predecir_cbow(W, W_s, contexto, diccionario, k=2):
   print(f"Contexto {palabras_contexto}")
   return prediccion, top_k
 
-def predecir_corpus_completo(W, W_s, cs_pos, diccionario):
+def predecir_corpus_completo(W, W_s, cs_pos, diccionario, K):
   predicciones = []
   for c_po in cs_pos:
-    prediccion = predecir_cbow(W, W_s, c_po[0], diccionario)
+    prediccion = predecir_cbow(W, W_s, c_po[0], diccionario, K)
     predicciones.append([c_po[0], c_po[1], prediccion])
   return predicciones
 
-f = np.load("./pesos.npz")
-w = f['W']
-w_s = f['W_s']
+
+
+f = np.load("./pesos_cbow_pcmati_epoca300.npz")
+print(f['C'])
+w = f['W1']
+w_s = f['W2']
 corpus = './TXTS/Corpus.txt'
 diccionario = './TXTS/Diccionario.txt'
 V = crear_tokens(diccionario)
 corpus_i = convertir_corpus(V, corpus)
 cs_pos = generar_contextos(corpus_i, 4)
 
-predicciones = predecir_corpus_completo(w, w_s, cs_pos, V)
+predicciones = predecir_corpus_completo(w, w_s, cs_pos, V, 10)
 
 
     
